@@ -1,0 +1,9 @@
+[
+  {
+    "name": "Smart Light",
+    "id": "YOUR_DEVICE_ID",
+    "key": "YOUR_LOCAL_KEY",
+    "ip": "192.168.x.x",
+    "version": "3.5"
+  }
+]
