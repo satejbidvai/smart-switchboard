@@ -8,7 +8,7 @@ Python + tinytuya project that controls Tuya smart devices over the local networ
 .venv/bin/python switch.py <toggle|on|off|warm|color> [device_name]
 ```
 
-Device name is optional when only one device exists in `devices.json`.
+Device name is optional. When omitted: `off` turns off **all** devices; other commands default to the first bulb (category `dj`).
 
 ## Gitignored files that exist locally
 
@@ -50,10 +50,12 @@ In order:
 - Apple Shortcuts don't load shell profiles. Commands must use absolute paths: `/Users/satejbidvai/Work/Personal/smart-switchboard/.venv/bin/python /Users/satejbidvai/Work/Personal/smart-switchboard/switch.py toggle`
 - tinytuya uses British spelling: `set_mode('colour')`, not `set_mode('color')`. The CLI command is `color` but the API call is `colour`.
 - Adding a new device to the network can cause existing devices to get new DHCP IPs — this is the most common reason the shortcut breaks.
+- The smart plug (category `cz`) uses `OutletDevice` and DP `1` for switch control; the bulb (category `dj`) uses `BulbDevice` and DP `20`.
+- The Tuya IoT Core trial expires every ~6 months. Renew at iot.tuya.com → Cloud → Cloud Services → IoT Core → Extend Trial Period. Only needed for wizard runs; local control is unaffected.
 
 ## Boundaries
 
 - Never commit `devices.json`, `snapshot.json`, `tinytuya.json`, or `tuya-raw.json` — they contain device keys and cloud credentials.
-- Never overwrite or recreate `devices.json` without reading its current contents. It is 290+ lines with DP mappings that cannot be regenerated from `snapshot.json` alone.
+- Never overwrite or recreate `devices.json` without reading its current contents. It is 480+ lines with DP mappings that cannot be regenerated from `snapshot.json` alone.
 - Never expose device IDs, local keys, MAC addresses, or Tuya API credentials in commits or responses.
 - This repo is Tuya-protocol only. No other ecosystems (Hue, Tapo, Matter).

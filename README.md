@@ -98,10 +98,15 @@ Note the **IP** and **Version** from the output. Add both to `devices.json` manu
 | `warm` | Turn on in warm white mode |
 | `color` | Turn on in color mode |
 
-`device_name` is optional. If you have only one device in `devices.json`, it's used automatically. If you have multiple, pass the name (case-insensitive match):
+`device_name` is optional. When omitted:
+- `off` turns off **all** devices
+- All other commands default to the first bulb
+
+To target a specific device, pass its name (case-insensitive match):
 
 ```bash
 .venv/bin/python switch.py toggle "Room Bulb"
+.venv/bin/python switch.py off "10Amp Smart Plug"
 ```
 
 ## Apple Shortcuts
@@ -145,7 +150,7 @@ These shortcuts also appear in Raycast automatically.
 | Bulb's IP changed (router reboot, DHCP lease expired) | `tinytuya scan`, then update `ip` in `devices.json` |
 | Bulb was factory-reset or re-paired in Smart Life | `tinytuya wizard` (the `local_key` rotates on reset) |
 | Added a new device to Smart Life | `tinytuya wizard` then `tinytuya scan` |
-| Tuya IoT trial expired (after ~1 year) | Only affects the wizard. Local control keeps working with the existing key. Renew at iot.tuya.com if you need to re-extract keys. |
+| Tuya IoT trial expired (after ~6 months) | Only affects the wizard. Local control keeps working with the existing key. Renew at iot.tuya.com: Cloud > Cloud Services > IoT Core > Extend Trial Period. |
 | Moved to a new router / network | `tinytuya scan` for new IPs. Set DHCP reservations to avoid this. |
 
 Tip: set a **DHCP reservation** on your router for the bulb's MAC address. This makes the IP permanent and eliminates the most common reason to re-run anything.
