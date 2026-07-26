@@ -97,9 +97,11 @@ Note the **IP** and **Version** from the output. Add both to `devices.json` manu
 | `off` | Turn off |
 | `warm` | Turn on in warm white mode |
 | `color` | Turn on in color mode |
+| `monitor` | Turn on the monitor light (smart plug) |
 
 `device_name` is optional. When omitted:
 - `off` turns off **all** devices
+- `monitor` defaults to the smart plug
 - All other commands default to the first bulb
 
 To target a specific device, pass its name (case-insensitive match):

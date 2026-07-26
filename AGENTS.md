@@ -5,10 +5,10 @@ Python + tinytuya project that controls Tuya smart devices over the local networ
 ## Commands
 
 ```bash
-.venv/bin/python switch.py <toggle|on|off|warm|color> [device_name]
+.venv/bin/python switch.py <toggle|on|off|warm|color|monitor> [device_name]
 ```
 
-Device name is optional. When omitted: `off` turns off **all** devices; other commands default to the first bulb (category `dj`).
+Device name is optional. When omitted: `off` turns off **all** devices; `monitor` defaults to the smart plug; other commands default to the first bulb (category `dj`).
 
 ## Gitignored files that exist locally
 

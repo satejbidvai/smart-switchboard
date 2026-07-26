@@ -8,7 +8,7 @@ from pathlib import Path
 import tinytuya
 
 DEVICES_FILE = Path(__file__).parent / "devices.json"
-COMMANDS = ("toggle", "on", "off", "warm", "color")
+COMMANDS = ("toggle", "on", "off", "warm", "color", "monitor")
 
 
 def load_devices():
@@ -71,6 +71,10 @@ def run(command, device_name=None):
                 pass
         return
 
+    # "monitor" defaults to the smart plug
+    if command == "monitor" and not device_name:
+        device_name = "10Amp Smart Plug"
+
     device_info = load_device(device_name)
     if not device_info:
         return
@@ -98,6 +102,8 @@ def run(command, device_name=None):
     elif command == "color":
         device.turn_on()
         device.set_mode("colour")
+    elif command == "monitor":
+        device.turn_on()
 
 
 def main():
