@@ -6,9 +6,12 @@ Python + tinytuya project that controls Tuya smart devices over the local networ
 
 ```bash
 .venv/bin/python switch.py <toggle|on|off|warm|color|monitor> [device_name]
+.venv/bin/python update_ips.py
 ```
 
 Device name is optional. When omitted: `off` turns off **all** devices; `monitor` defaults to the smart plug; other commands default to the first bulb (category `dj`).
+
+`update_ips.py` runs a LAN scan and updates changed IPs in `devices.json` automatically.
 
 ## Gitignored files that exist locally
 
@@ -24,7 +27,7 @@ These files are present on disk but invisible to git-based file searches. Never 
 
 ## Key relationship: snapshot.json vs devices.json
 
-`tinytuya scan` writes discovered devices to `snapshot.json`. It does NOT update `devices.json`. When an IP changes, the agent must compare the two files and update the `ip` field in `devices.json` — never replace the file wholesale. `devices.json` contains extensive DP mappings and metadata that `snapshot.json` does not.
+`tinytuya scan` writes discovered devices to `snapshot.json`. It does NOT update `devices.json`. When an IP changes, run `update_ips.py` — it scans the LAN and updates only the `ip` field in `devices.json`. Never replace `devices.json` wholesale. It contains extensive DP mappings and metadata that `snapshot.json` does not.
 
 ## Diagnosing "shortcut stopped working"
 
@@ -32,7 +35,7 @@ In order:
 
 1. Is the bulb physically powered on (wall switch)?
 2. Run `switch.py toggle` manually — does it work from the terminal?
-3. If silent failure: run `.venv/bin/python -m tinytuya scan` and compare the IP in `snapshot.json` to the IP in `devices.json`. If they differ, update `devices.json`.
+3. If silent failure: run `.venv/bin/python update_ips.py` to scan and update IPs automatically.
 4. If scan finds nothing: Mac is on a different network than the bulb (5 GHz vs 2.4 GHz).
 5. If IP is correct but still fails: `local_key` rotated (factory reset or re-pair). Re-run `.venv/bin/python -m tinytuya wizard`.
 

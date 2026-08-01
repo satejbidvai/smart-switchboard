@@ -149,11 +149,11 @@ These shortcuts also appear in Raycast automatically.
 
 | Situation | What to re-run |
 |---|---|
-| Bulb's IP changed (router reboot, DHCP lease expired) | `tinytuya scan`, then update `ip` in `devices.json` |
+| Bulb's IP changed (router reboot, DHCP lease expired) | `python update_ips.py` (scans and updates automatically) |
 | Bulb was factory-reset or re-paired in Smart Life | `tinytuya wizard` (the `local_key` rotates on reset) |
 | Added a new device to Smart Life | `tinytuya wizard` then `tinytuya scan` |
 | Tuya IoT trial expired (after ~6 months) | Only affects the wizard. Local control keeps working with the existing key. Renew at iot.tuya.com: Cloud > Cloud Services > IoT Core > Extend Trial Period. |
-| Moved to a new router / network | `tinytuya scan` for new IPs. Set DHCP reservations to avoid this. |
+| Moved to a new router / network | `python update_ips.py` for new IPs. Set DHCP reservations to avoid this. |
 
 Tip: set a **DHCP reservation** on your router for the bulb's MAC address. This makes the IP permanent and eliminates the most common reason to re-run anything.
 
@@ -165,7 +165,7 @@ Tip: set a **DHCP reservation** on your router for the bulb's MAC address. This 
 
 **Scan finds nothing** — Mac isn't on the same Wi-Fi as the bulb, or a firewall is blocking UDP 6666/6667/7000 and TCP 6668. Bulbs use 2.4 GHz; if your Mac is on a separate 5 GHz SSID, the scan won't find it.
 
-**Commands silently fail** — The bulb is powered off at the wall switch, the IP changed, or the `local_key` rotated. Check power, re-scan, and re-run the wizard in that order.
+**Commands silently fail** — The bulb is powered off at the wall switch, the IP changed, or the `local_key` rotated. Check power, run `update_ips.py`, and re-run the wizard in that order.
 
 ## Uninstall
 
